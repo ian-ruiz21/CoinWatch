@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'CoinWatch.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'coinwatch',
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PW'],
