@@ -17,9 +17,18 @@
       </div>
       <nav>
         <ul>
-          <li><a href="/about">About</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="">Home</a></li>
+            <li><a href="">My Watchlist</a></li>
+            <li><a href="">Crypto Blog</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+          {% else %}
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'home' %}">Login</a></li>
+          {% endif %}
         </ul>
       </nav>
+      
     </header>
     <main>{% block content %} {% endblock %}</main>
   </body>
