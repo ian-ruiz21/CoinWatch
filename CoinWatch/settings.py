@@ -131,6 +131,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# update redirects to the urls
+
+LOGIN_REDIRECT_URL = 'about'
+
+LOGOUT_REDIRECT_URL = 'about'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
