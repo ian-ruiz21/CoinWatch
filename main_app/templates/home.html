@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <section>
     <form action="{% url 'home' %}" method="post" class="login">
       <h1>Login</h1>
@@ -7,5 +11,5 @@
     </form>
   </section>
   
-  {% comment %} {% endblock %} {% endcomment %}
+{% endblock %}
   
