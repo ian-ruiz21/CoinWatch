@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href=""/>
+{% endblock %} 
+{% block content %}
+
+
+
+<div class="coin-container">
+    <h1>Available Cryptocurrencies</h1>
+    <div class="coin-list">
+        {% for coin in coins %}
+        <div class="coin-item">
+            <img src="" alt="">
+            <h3>PLAYA!!! PLAYA!!!</h3>
+            <p>Price: $</p>
+            <p>Market Cap: $</p>
+            <p>Volume: $</p>
+            <p>Change: %</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
