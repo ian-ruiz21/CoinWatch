@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
+import requests
 from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 
@@ -10,6 +11,9 @@ class Home(LoginView):
 
 def about(request):
     return render(request, 'about.html')
+
+def coin_index(request):
+    return render(request, 'coins/coin_index.html')
 
 def signup(request):
     error_message = ''
