@@ -3,8 +3,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 import requests
 from django.shortcuts import render, redirect
-
-# from django.http import HttpResponse
+from .models import Coin
+from django.http import HttpResponse, Http404
 
 
 class Home(LoginView):
@@ -30,22 +30,31 @@ def fetch_coin_info():
 
     if response.status_code == 200:
         data = response.json()
-
         # Return the list of 15 coins
         coins = []
         for coin_data in data:
-            coins.append(
-                {
-                    "name": coin_data["name"],
-                    "symbol": coin_data["symbol"].upper(),
-                    "price": coin_data["current_price"],
-                    "market_cap": coin_data["market_cap"],
-                    "volume": coin_data["total_volume"],
-                    "change": coin_data["price_change_percentage_24h"],
-                    "image_url": coin_data["image"],
-                }
-            )
+            coin_id = coin_data["id"]
+            name = coin_data["name"]
+            symbol = coin_data["symbol"].upper()
+            price = coin_data["current_price"]
+            market_cap = coin_data["market_cap"]
+            volume = coin_data["total_volume"]
+            change = coin_data["price_change_percentage_24h"]
+            image_url = coin_data["image"]
 
+        # Append each coin's data to the coins list
+        coins.append(
+            {
+                "id": coin_id,
+                "name": name,
+                "symbol": symbol,
+                "price": price,
+                "market_cap": market_cap,
+                "volume": volume,
+                "change": change,
+                "image_url": image_url,
+            }
+        )
         return coins
 
     else:
@@ -54,7 +63,21 @@ def fetch_coin_info():
 
 def coin_index(request):
     coins = fetch_coin_info()  # Get coin data
-    return render(request, "coins/coin_index.html", {"coins": coins})
+    return render(request, "coins/index.html", {"coins": coins})
+
+
+def coin_detail(request, coin_id):
+    # Adjust the API endpoint to fetch data for a specific coin
+    url = "https://api.coingecko.com/api/v3/coins/{coin_id}]"
+    response = requests.get(url)
+    if response.status_code == 200:
+        coin = response.json()  # Fetch the single coin’s details
+        return render(request, "coins/detail.html", {"coin_id": coin_id, "coin": coin})
+
+
+    else:
+    # Handle the case where the API does not return data (404, 500, etc.)
+        raise Http404("Coin not found")
 
 
 def signup(request):
