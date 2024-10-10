@@ -5,6 +5,11 @@ import requests
 from django.shortcuts import render, redirect
 from .models import Coin
 from django.http import HttpResponse, Http404
+import os
+
+API_KEY = os.environ["API_KEY"]
+
+API_URL = f"https://api.coingecko.com/api/v3/coins/markets?per_page=20&vs_currency=usd&x_cg_api_key={API_KEY}"
 
 
 class Home(LoginView):
@@ -17,16 +22,7 @@ def about(request):
 
 def fetch_coin_info():
     # Fetch data from CoinGecko API
-    response = requests.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        params={
-            "vs_currency": "usd",  # You can adjust this to the currency you want to track
-            "order": "market_cap_desc",
-            "per_page": 15,  # Limit to 15 coins
-            "page": 1,
-            "sparkline": False,
-        },
-    )
+    response = requests.get(API_URL)
 
     if response.status_code == 200:
         data = response.json()
@@ -42,19 +38,19 @@ def fetch_coin_info():
             change = coin_data["price_change_percentage_24h"]
             image_url = coin_data["image"]
 
-        # Append each coin's data to the coins list
-        coins.append(
-            {
-                "id": coin_id,
-                "name": name,
-                "symbol": symbol,
-                "price": price,
-                "market_cap": market_cap,
-                "volume": volume,
-                "change": change,
-                "image_url": image_url,
-            }
-        )
+            # Append each coin's data to the coins list
+            coins.append(
+                {
+                    "id": coin_id,
+                    "name": name,
+                    "symbol": symbol,
+                    "price": price,
+                    "market_cap": market_cap,
+                    "volume": volume,
+                    "change": change,
+                    "image_url": image_url,
+                }
+            )
         return coins
 
     else:
@@ -63,6 +59,7 @@ def fetch_coin_info():
 
 def coin_index(request):
     coins = fetch_coin_info()  # Get coin data
+    print(coins)
     return render(request, "coins/index.html", {"coins": coins})
 
 
@@ -74,9 +71,8 @@ def coin_detail(request, coin_id):
         coin = response.json()  # Fetch the single coin’s details
         return render(request, "coins/detail.html", {"coin_id": coin_id, "coin": coin})
 
-
     else:
-    # Handle the case where the API does not return data (404, 500, etc.)
+        # Handle the case where the API does not return data (404, 500, etc.)
         raise Http404("Coin not found")
 
 
