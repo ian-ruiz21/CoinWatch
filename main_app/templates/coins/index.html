@@ -8,7 +8,7 @@
     {% for coin in coins %}
     <div class="coin-item">
       <a href="{% url 'coin-detail' coin.symbol %}" >
-      <img src="{{ coin.image_url }}" alt="{{ coin.name }}" />
+      <img src="{{ coin.image }}" alt="{{ coin.name }}" />
       <h3>{{ coin.name }} ({{ coin.symbol }})</h3>
       <p>Price: ${{ coin.price }}</p>
     </a>

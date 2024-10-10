@@ -5,6 +5,14 @@ import requests
 from django.shortcuts import render, redirect
 from .models import Coin
 from django.http import HttpResponse, Http404
+import os
+from django.utils import timezone
+
+API_KEY = os.environ["API_KEY"]
+
+API_URL = f"https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=20&vs_currency=usd&x_cg_api_key={API_KEY}"
+
+API_FETCH_FREQ = 1  # minutes
 
 
 class Home(LoginView):
@@ -15,46 +23,30 @@ def about(request):
     return render(request, "about.html")
 
 
-def fetch_coin_info():
+def fetch_coin_info(add_updated_at):
     # Fetch data from CoinGecko API
-    response = requests.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        params={
-            "vs_currency": "usd",  # You can adjust this to the currency you want to track
-            "order": "market_cap_desc",
-            "per_page": 15,  # Limit to 15 coins
-            "page": 1,
-            "sparkline": False,
-        },
-    )
+    response = requests.get(API_URL)
 
     if response.status_code == 200:
         data = response.json()
         # Return the list of 15 coins
         coins = []
+        curr_time = timezone.now()
         for coin_data in data:
-            coin_id = coin_data["id"]
-            name = coin_data["name"]
-            symbol = coin_data["symbol"].upper()
-            price = coin_data["current_price"]
-            market_cap = coin_data["market_cap"]
-            volume = coin_data["total_volume"]
-            change = coin_data["price_change_percentage_24h"]
-            image_url = coin_data["image"]
-
-        # Append each coin's data to the coins list
-        coins.append(
-            {
-                "id": coin_id,
-                "name": name,
-                "symbol": symbol,
-                "price": price,
-                "market_cap": market_cap,
-                "volume": volume,
-                "change": change,
-                "image_url": image_url,
+            api_coin_data = {
+                "name": coin_data["name"],
+                "symbol": coin_data["symbol"].upper(),
+                "price": coin_data["current_price"],
+                "market_cap": coin_data["market_cap"],
+                "volume": coin_data["total_volume"],
+                "change": coin_data["price_change_percentage_24h"],
+                "image": coin_data["image"],
             }
-        )
+
+            if add_updated_at:
+                api_coin_data["updated_at"] = curr_time
+            # Append each coin's data to the coins list
+            coins.append(api_coin_data)
         return coins
 
     else:
@@ -62,7 +54,26 @@ def fetch_coin_info():
 
 
 def coin_index(request):
-    coins = fetch_coin_info()  # Get coin data
+    # Check if there are coins in database
+    coins = Coin.objects.all().order_by("-market_cap")
+    if len(coins) and coins[0].updated_at < timezone.now() - timezone.timedelta(minutes=API_FETCH_FREQ):
+        print("Updating coins")
+        coin_data = fetch_coin_info(False)
+        for coin in coins:
+            for data in coin_data:
+                if coin.symbol == data["symbol"]:
+                    coin.price = data["price"]
+                    coin.market_cap = data["market_cap"]
+                    coin.volume = data["volume"]
+                    coin.change = data["change"]
+        Coin.objects.bulk_update(coins, ["price", "market_cap", "volume", "change"])
+    
+    elif not len(coins):
+        coin_data = fetch_coin_info(True)
+        # Save the data to the database
+        coin_objects = [Coin(**data) for data in coin_data]
+        coins = Coin.objects.bulk_create(coin_objects)
+        # Get all coins from the database
     return render(request, "coins/index.html", {"coins": coins})
 
 
@@ -74,9 +85,8 @@ def coin_detail(request, coin_id):
         coin = response.json()  # Fetch the single coin’s details
         return render(request, "coins/detail.html", {"coin_id": coin_id, "coin": coin})
 
-
     else:
-    # Handle the case where the API does not return data (404, 500, etc.)
+        # Handle the case where the API does not return data (404, 500, etc.)
         raise Http404("Coin not found")
 
 
