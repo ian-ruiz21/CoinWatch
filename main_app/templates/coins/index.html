@@ -7,12 +7,11 @@
   <div class="coin-list">
     {% for coin in coins %}
     <div class="coin-item">
+      <a href="{% url 'coin-detail' coin.symbol %}" >
       <img src="{{ coin.image_url }}" alt="{{ coin.name }}" />
       <h3>{{ coin.name }} ({{ coin.symbol }})</h3>
       <p>Price: ${{ coin.price }}</p>
-      <p>Market Cap: ${{ coin.market_cap }}</p>
-      <p>Volume: ${{ coin.volume }}</p>
-      <p>Change: {{ coin.change }}%</p>
+    </a>
     </div>
     {% endfor %}
   </div>
