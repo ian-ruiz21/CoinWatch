@@ -12,6 +12,7 @@
           <p>Market Cap: {{ coin.market_cap }}</p>
           <p>Volume: {{ coin.volume }}</p>
           <p>Change: {{ coin.change }}%</p>
+          # remove button error ('too many values to unpack')
           <a href="{% url 'remove-from-watchlist' coin.symbol %}">Remove from Watchlist</a>
         </li>
       {% endfor %}
