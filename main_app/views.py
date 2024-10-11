@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 import requests
 from django.shortcuts import render, redirect
 from .models import Coin
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 import os
 from django.utils import timezone
 
@@ -78,17 +78,14 @@ def coin_index(request):
     return render(request, "coins/index.html", {"coins": coins})
 
 
-def coin_detail(request, coin_id):
-    # Adjust the API endpoint to fetch data for a specific coin
-    url = "https://api.coingecko.com/api/v3/coins/{coin_id}]"
-    response = requests.get(url)
-    if response.status_code == 200:
-        coin = response.json()  # Fetch the single coin’s details
-        return render(request, "coins/detail.html", {"coin_id": coin_id, "coin": coin})
+def coin_detail(request, symbol):
+    try:
+        coin = Coin.objects.get(symbol=symbol)
+    except Coin.DoesNotExist:
+        return HttpResponseNotFound("Coin not found")
+    
+    return render(request,"coins/detail.html", {"coin": coin})
 
-    else:
-        # Handle the case where the API does not return data (404, 500, etc.)
-        raise Http404("Coin not found")
 
 
 def signup(request):
