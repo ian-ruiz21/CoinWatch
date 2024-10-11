@@ -23,7 +23,7 @@ def about(request):
     return render(request, "about.html")
 
 
-def fetch_coin_info(add_updated_at):
+def fetch_coin_info():
     # Fetch data from CoinGecko API
     response = requests.get(API_URL)
 
@@ -41,10 +41,9 @@ def fetch_coin_info(add_updated_at):
                 "volume": coin_data["total_volume"],
                 "change": coin_data["price_change_percentage_24h"],
                 "image": coin_data["image"],
+                "updated_at": curr_time
             }
 
-            if add_updated_at:
-                api_coin_data["updated_at"] = curr_time
             # Append each coin's data to the coins list
             coins.append(api_coin_data)
         return coins
@@ -58,7 +57,8 @@ def coin_index(request):
     coins = Coin.objects.all().order_by("-market_cap")
     if len(coins) and coins[0].updated_at < timezone.now() - timezone.timedelta(minutes=API_FETCH_FREQ):
         print("Updating coins")
-        coin_data = fetch_coin_info(False)
+        coin_data = fetch_coin_info()
+        curr_time = timezone.now()
         for coin in coins:
             for data in coin_data:
                 if coin.symbol == data["symbol"]:
@@ -66,10 +66,11 @@ def coin_index(request):
                     coin.market_cap = data["market_cap"]
                     coin.volume = data["volume"]
                     coin.change = data["change"]
-        Coin.objects.bulk_update(coins, ["price", "market_cap", "volume", "change"])
+                    coin.updated_at = curr_time
+        Coin.objects.bulk_update(coins, ["price", "market_cap", "volume", "change", "updated_at"])
     
     elif not len(coins):
-        coin_data = fetch_coin_info(True)
+        coin_data = fetch_coin_info()
         # Save the data to the database
         coin_objects = [Coin(**data) for data in coin_data]
         coins = Coin.objects.bulk_create(coin_objects)
