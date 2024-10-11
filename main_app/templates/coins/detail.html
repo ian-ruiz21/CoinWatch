@@ -16,7 +16,10 @@
         <p>Change (24h): {{ coin.change }}%</p>
         <p>{{ coin.description }}</p>
     </div>
-    <a href="{% url 'coin-watchlist'  %}" class="btn warn">Add New Coin!</a> 
+    <form action="{% url 'add-to-watchlist' coin.symbol%}" method="POST"> 
+        {% csrf_token %}
+    <button type="submit" class="btn submit">Add New Coin!</button>
+     </form> 
     <a href="{% url 'coin-index'  %}" class="btn warn">All Coins</a>
 </div>
 {% endblock %}
