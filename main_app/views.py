@@ -100,18 +100,16 @@ def add_to_watchlist(request, symbol):
         watchlist = WatchList.objects.create(user=request.user)  # Create a watchlist if it doesn't exist
 
     watchlist.coin.add(coin)  # Add coin to watchlist
-    print(f"User {request.user.username}'s Watchlist after adding: {watchlist.coin.all()}")
-
     return redirect('watchlist')
 
 def remove_from_watchlist(request, symbol):
-    coin = get_object_or_404(Coin, symbol)
+    coin = get_object_or_404(Coin, symbol=symbol)
     watchlist = WatchList.objects.filter(user=request.user).first()
 
     if watchlist:
         watchlist.coin.remove(coin)  # Remove coin from watchlist
 
-    return redirect('watchlist')
+    return redirect('/watchlist')
 
 
 def signup(request):
