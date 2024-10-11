@@ -23,7 +23,7 @@
         <ul>
           {% if user.is_authenticated %}
             <li><a href="">Home</a></li>
-            <li><a href="">My Watchlist</a></li>
+            <li><a href="{% url 'coin-watchlist'%}">My Watchlist</a></li>
             <li><a href="">Crypto Blog</a></li>
             <li><a href="{% url 'coin-index' %}">All Coins</a></li>
             <li><a href="{% url 'about' %}">About</a></li>

@@ -2,9 +2,9 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 import requests
-from django.shortcuts import render, redirect
-from .models import Coin
-from django.http import HttpResponse, Http404
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Coin, WatchList
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 import os
 from django.utils import timezone
 
@@ -78,44 +78,51 @@ def coin_index(request):
     return render(request, "coins/index.html", {"coins": coins})
 
 
-def coin_detail(request, coin_id):
-    # Adjust the API endpoint to fetch data for a specific coin
-    url = "https://api.coingecko.com/api/v3/coins/{coin_id}]"
-    response = requests.get(url)
-    if response.status_code == 200:
-        coin = response.json()  # Fetch the single coin’s details
-        return render(request, "coins/detail.html", {"coin_id": coin_id, "coin": coin})
+def coin_detail(request, symbol):
+    try:
+        coin = Coin.objects.get(symbol=symbol)
+    except Coin.DoesNotExist:
+        return HttpResponseNotFound("Coin not found")
+    
+    return render(request,"coins/detail.html", {"coin": coin})
 
-    else:
-        # Handle the case where the API does not return data (404, 500, etc.)
-        raise Http404("Coin not found")
+def watchlist_view(request):
+    watchlist = WatchList.objects.filter(user=request.user).first()  # Get watchlist for logged-in user
+    if not watchlist:
+        watchlist = WatchList.objects.create(user=request.user)  # Create an empty watchlist if it doesn't exist
+    return render(request, 'coins/watchlist.html', {'watchlist': watchlist})
+
+def add_to_watchlist(request, symbol):
+    coin = get_object_or_404(Coin, symbol=symbol)
+    watchlist = WatchList.objects.filter(user=request.user).first()
+
+    if not watchlist:
+        watchlist = WatchList.objects.create(user=request.user)  # Create a watchlist if it doesn't exist
+
+    watchlist.coin.add(coin)  # Add coin to watchlist
+    return redirect('watchlist')
+
+def remove_from_watchlist(request, symbol):
+    coin = get_object_or_404(Coin, symbol)
+    watchlist = WatchList.objects.filter(user=request.user).first()
+
+    if watchlist:
+        watchlist.coin.remove(coin)  # Remove coin from watchlist
+
+    return redirect('watchlist')
 
 
 def signup(request):
     error_message = ""
     if request.method == "POST":
-        # This is how to create a 'user' form object
-        # that includes the data from the browser
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            # This will add the user to the database
             user = form.save()
-            # This is how we log a user in
             login(request, user)
             return redirect("home")
         else:
             error_message = "Invalid sign up - try again"
-    # A bad POST or a GET request, so render signup.html with an empty form
     form = UserCreationForm()
     context = {"form": form, "error_message": error_message}
     return render(request, "signup.html", context)
-    # Same as:
-    # return render(
-    #     request,
-    #     'signup.html',
-    #     {'form': form, 'error_message': error_message}
-    # )
-
-
-# def login(request):
-#     return render(request, 'registration/login.html')
+ 
