@@ -93,7 +93,8 @@ def watchlist_view(request):
     return render(request, 'coins/watchlist.html', {'watchlist': watchlist})
 
 def add_to_watchlist(request, symbol):
-    coin = get_object_or_404(Coin, symbol=symbol)
+    # coin = get_object_or_404(Coin, symbol=symbol)
+    coin = Coin.objects.get(symbol=symbol)
     watchlist = WatchList.objects.filter(user=request.user).first()
 
     if not watchlist:
@@ -101,7 +102,9 @@ def add_to_watchlist(request, symbol):
 
     watchlist.coin.add(coin) # Add coin to watchlist 
     print(coin)
-    return render(request, 'coins/watchlist.html')
+    # return render(request, 'coins/watchlist.html')
+    return redirect('/watchlist')
+
 
 def remove_from_watchlist(request, symbol):
     coin = get_object_or_404(Coin, symbol=symbol)
