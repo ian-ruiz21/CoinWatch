@@ -1,0 +1,60 @@
+.home-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.hero-banner {
+    margin-bottom: 2rem;
+}
+
+.hero-banner h1 {
+    font-size: 2.5rem;
+    color: #34513a; /* Dark green to match your previous color scheme */
+}
+
+.hero-banner p {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.hero-image {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.login-container {
+    display: inline-block;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #e9d7c0;
+    border-radius: 8px;
+}
+
+.login-form h2 {
+    color: #34513a;
+}
+
+.login-form p {
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.signup-prompt {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.signup-prompt a {
+    color: #34513a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}

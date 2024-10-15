@@ -1,17 +1,33 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %} 
 {% block content %}
 
-<section>
-    <form action="{% url 'home' %}" method="post" class="login">
-      <h1>Login</h1>
-      {% csrf_token %} {{ form.as_p }}
-      <input type="hidden" name="next" value="{{ next }}" />
-      <button type="submit" class="btn submit">Login</button>
-    </form>
-  </section>
-  
+<section class="home-section">
+    <!-- Add a visually appealing header and welcome message -->
+    <div class="hero-banner">
+        <h1>Welcome to Crypto Price Tracker</h1>
+        <p>Your go-to platform for tracking real-time cryptocurrency prices and trends. Sign in to start building your personalized watchlist and stay updated with market changes.</p>
+    </div>
+
+    <!-- Update the login form with a better layout and CTA -->
+    <div class="login-container">
+        <form action="{% url 'home' %}" method="post" class="login-form">
+            <h2>Login to Your Account</h2>
+            <p>Access your personalized cryptocurrency watchlist and real-time price alerts by logging in below.</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="btn submit">Login</button>
+        </form>
+
+        <!-- Add a small section for users who don’t have an account -->
+        <div class="signup-prompt">
+            <p>New here? <a href="{% url 'signup' %}">Create an account</a> to start tracking your favorite cryptocurrencies!</p>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
