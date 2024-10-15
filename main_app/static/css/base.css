@@ -146,3 +146,32 @@ transition: background-color 0.3s ease;
 .btn-gray:hover {
 background-color: #85BB65; /* Darker gray on hover */
 }
+
+#search-results {
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 5px;
+}
+
+#search-results ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#search-results li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#search-results li:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+#search-input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
