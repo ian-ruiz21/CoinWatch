@@ -4,20 +4,22 @@
   <h1>{{ user.username }}'s Watchlist</h1>
 
   {% if watchlist.coin.all %}
-    <ul>
+    <div class="coin-grid">
       {% for coin in watchlist.coin.all %}
-        <li>
-          <h1>{{ coin.name }} {{ coin.symbol }}</h1>
+        <div class="coin-card">
+          <h2>{{ coin.name }} ({{ coin.symbol }})</h2>
           <div class="coin-info">
-              <img src="{{ coin.image }}" alt="{{ coin.name }}">
+              <img src="{{ coin.image }}" alt="{{ coin.name }}"/>
           <p>Price: ${{ coin.price }}</p>
           <p>Market Cap: {{ coin.market_cap }}</p>
           <p>Volume: {{ coin.volume }}</p>
           <p>Change: {{ coin.change }}%</p>
-          <a href="{% url 'remove-from-watchlist' coin.symbol %}">Remove from Watchlist</a>
-        </li>
+          <a href="{% url 'remove-from-watchlist' coin.symbol %}"
+          class="btn-gray">Remove from Watchlist</a>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
+      </div>
   {% else %}
     <p>Your watchlist is empty.</p>
   {% endif %}
