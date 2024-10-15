@@ -89,6 +89,16 @@ def coin_detail(request, symbol):
     
     return render(request,"coins/detail.html", {"coin": coin})
 
+def historical_data(request, symbol):
+    response = requests.get('https://api.coingecko.com/api/v3/coins/{id}/history')
+
+    try:
+        coin = Coin.objects.get(symbol=symbol)
+    except Coin.DoesNotExist:
+        return HttpResponseNotFound("Coin not found")
+
+    return render(request, "coins/historical_data.html", {"coin": coin})
+
 def watchlist_view(request):
     watchlist = WatchList.objects.filter(user=request.user).first()  # Get watchlist for logged-in user
     if not watchlist:

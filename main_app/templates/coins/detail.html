@@ -23,5 +23,6 @@
     <button type="submit" class="btn submit">Add New Coin!</button>
      </form> 
     <a href="{% url 'coin-index'  %}" class="btn warn">All Coins</a>
+    <a href="{% url 'historical_data' coin.symbol %}" class="btn warn">Crypto History</a>
 </div>
 {% endblock %}
