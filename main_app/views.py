@@ -10,7 +10,7 @@ from django.utils import timezone
 
 API_KEY = os.environ["API_KEY"]
 
-API_URL = f"https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=20&vs_currency=usd&x_cg_api_key={API_KEY}"
+API_URL = f"https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=100&vs_currency=usd&x_cg_api_key={API_KEY}"
 
 API_FETCH_FREQ = 1  # minutes
 
