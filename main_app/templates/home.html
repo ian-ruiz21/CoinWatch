@@ -6,13 +6,23 @@
 {% block content %}
 
 <section class="home-section">
-    <!-- Add a visually appealing header and welcome message -->
+    <!-- Hero banner remains for both logged-in and logged-out users -->
     <div class="hero-banner">
         <h1>Welcome to Crypto Price Tracker</h1>
-        <p>Your go-to platform for tracking real-time cryptocurrency prices and trends. Sign in to start building your personalized watchlist and stay updated with market changes.</p>
+        <p>Your go-to platform for tracking real-time cryptocurrency prices and trends.</p>
     </div>
 
-    <!-- Update the login form with a better layout and CTA -->
+    {% if user.is_authenticated %}
+    <!-- Content for logged-in users -->
+    <div class="welcome-container">
+        <h2>Welcome back, {{ user.username }}!</h2>
+        <p>Access your personalized cryptocurrency watchlist and stay up to date with real-time price changes.</p>
+        <a href="{% url 'coin-watchlist' %}" class="btn">Go to My Watchlist</a>
+        <a href="{% url 'coin-index' %}" class="btn">Explore All Coins</a>
+    </div>
+
+    {% else %}
+    <!-- Login form for users who are not logged in -->
     <div class="login-container">
         <form action="{% url 'home' %}" method="post" class="login-form">
             <h2>Login to Your Account</h2>
@@ -23,11 +33,11 @@
             <button type="submit" class="btn submit">Login</button>
         </form>
 
-        <!-- Add a small section for users who don’t have an account -->
         <div class="signup-prompt">
             <p>New here? <a href="{% url 'signup' %}">Create an account</a> to start tracking your favorite cryptocurrencies!</p>
         </div>
     </div>
+    {% endif %}
 </section>
 
 {% endblock %}
