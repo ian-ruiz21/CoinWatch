@@ -11,4 +11,5 @@ urlpatterns = [
     path('watchlist/', views.watchlist_view, name='coin-watchlist'),
     path('watchlist/add/<str:symbol>/', views.add_to_watchlist, name='add-to-watchlist'),
     path('watchlist/remove/<str:symbol>/', views.remove_from_watchlist, name='remove-from-watchlist'),
+    path('live-search/', views.live_search, name='live_search'),
 ]

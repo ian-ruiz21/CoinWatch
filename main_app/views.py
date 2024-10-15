@@ -1,12 +1,15 @@
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
-import requests
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Coin, WatchList
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-import os
 from django.utils import timezone
+from django.http import JsonResponse
+from django.db.models import Q
+from .models import Coin, WatchList
+import requests
+import os
+
 
 API_KEY = os.environ["API_KEY"]
 
@@ -114,6 +117,21 @@ def remove_from_watchlist(request, symbol):
         watchlist.coin.remove(coin)  # Remove coin from watchlist
 
     return redirect('/watchlist')
+
+def live_search(request):
+    query = request.GET.get('q', '')  # Get the search query from the request
+    if query:
+        # Perform a case-insensitive search for coins that match the name or symbol
+        results = Coin.objects.filter(
+            Q(name__icontains=query) | Q(symbol__icontains=query)
+        )
+    else:
+        results = Coin.objects.none()  # If no query, return empty results
+
+    # Serialize results to send back as JSON
+    data = list(results.values('name', 'symbol', 'price'))
+
+    return JsonResponse({'results': data})
 
 
 def signup(request):
