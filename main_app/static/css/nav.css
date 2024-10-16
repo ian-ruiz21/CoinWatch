@@ -1,0 +1,121 @@
+.nav-links > ul,
+.non-user > ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.dynamic-nav ul li {
+  margin: 0 15px;
+}
+
+.dynamic-nav a {
+  text-decoration: none;
+  color: #ffbd59;
+  font-weight: 500;
+}
+
+.dynamic-nav {
+  display: flex;
+  padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+
+  .header-logo-container {
+    margin-right: 5rem;
+  }
+  .search-wrapper {
+    margin-right: 5rem;
+    position: relative;
+  }
+  .main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .nav-links {
+      margin-right: 5rem;
+    }
+  }
+}
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #53006d; 
+    z-index: 1000; 
+    padding: 10px 0; 
+  }
+
+
+#logout-form button {
+  border: none;
+  background: transparent;
+  color: #ffbd59;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn-gray {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #ffbd59; /* Gray background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-gray:hover {
+  background-color: #ffbd59; /* Darker gray on hover */
+}
+
+#search-results {
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 5px;
+  width: 100%;
+  position:absolute;
+  background-color: rgba(255, 255, 242, 0.5) ;
+}
+
+#search-results ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#search-results li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#search-results li:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+#search-input {
+  padding: 10px;
+  width: 500px;
+  border: 1px solid white;
+  border-radius: 20.5px;
+  background: transparent;
+  color: white !important;
+}
+
+#search-input:focus {
+    outline-color:#ffbd59;
+    border: none;
+}
