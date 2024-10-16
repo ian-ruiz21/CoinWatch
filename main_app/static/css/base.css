@@ -4,7 +4,6 @@ html {
 
 body {
     background: url('') no-repeat center center fixed;
-    background-size: cover;
     color: var(--text-color);
 }
 
@@ -15,7 +14,9 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  /* background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.9)); */
+  background: url('bitcoin-image.jpeg') no-repeat center center fixed;
+  background-size: cover;
   z-index: -1;
 }
 
@@ -26,11 +27,12 @@ color: #ddd;
 .coin-container {
 color: white; /* Set text color to white */
 padding: 20px;
-background-color: #1a1a1a; /* Optional: Dark background for contrast */
 border-radius: 10px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 text-align: center;
+/* background-color: #1a1a1a; Optional: Dark background for contrast */
+/* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); */
 }
+
 
 .coin-grid {
 display: grid;
@@ -62,8 +64,9 @@ color: #ddd;
 
 /* Individual coin item style */
 .coin-item {
-background-color: #85BB65; /* Dark gray background for contrast */
+/* background-color: darkgrey;  */ /* Dark gray background for contrast */
 padding: 10px;
+border: 1px solid #ddd;
 border-radius: 8px;
 text-align: center;
 transition: transform 0.2s, box-shadow 0.2s;
@@ -100,78 +103,4 @@ color: rgb(183, 0, 255);
 .coin-grid {
     grid-template-columns: 1fr; /* 1 column for very small screens */
 }
-}
-
-/* CSS Styling for Navigation */
-.main-nav ul,
-.dynamic-nav ul {
-display: flex;
-justify-content: center;
-list-style: none;
-padding: 0;
-margin: 10px 0;
-}
-
-.main-nav ul li,
-.dynamic-nav ul li {
-margin: 0 15px;
-}
-
-.main-nav a,
-.dynamic-nav a {
-text-decoration: none;
-color: #ffffff;
-font-weight: bold;
-}
-
-.dynamic-nav {
-background-color: #85BB65;
-padding: 10px 0;
-}
-
-.btn-gray {
-display: inline-block;
-padding: 10px 20px;
-font-size: 16px;
-text-align: center;
-text-decoration: none;
-background-color: #85BB65; /* Gray background */
-color: white; /* White text */
-border: none;
-border-radius: 5px;
-cursor: pointer;
-transition: background-color 0.3s ease;
-}
-
-.btn-gray:hover {
-background-color: #85BB65; /* Darker gray on hover */
-}
-
-#search-results {
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-top: 5px;
-}
-
-#search-results ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-#search-results li {
-  padding: 5px;
-  border-bottom: 1px solid #ddd;
-}
-
-#search-results li:hover {
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-#search-input {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }

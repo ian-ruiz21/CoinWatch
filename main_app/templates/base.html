@@ -8,90 +8,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <title>CoinWatch</title>
     {% block head %} {% endblock %}
+
+    <style>
+            /* Floating Navigation Bar Styles */
+            header {
+              position: sticky;
+              {% comment %} top: 0;
+              left: 0;  {% endcomment %}
+              width: 100%;
+              {% comment %} background-color: #53006d; {% endcomment %}
+              z-index: 1000;
+              {% comment %} padding: 10px 0; {% endcomment %}
+            }
+
+            .header-logo-container {
+              text-align: center;
+            }
+
+            .dynamic-nav {
+              text-align: center;
+              margin-top: 10px;
+            }
+      {% comment %}
+            .dynamic-nav ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .dynamic-nav li {
+              margin: 0 15px;
+            } {% endcomment %}
+
+            {% comment %} .dynamic-nav a {
+              text-decoration: none;
+              color: white;
+              font-weight: bold;
+            } {% endcomment %}
+
+            {% comment %} .dynamic-nav button {
+              background-color: transparent;
+              border: none;
+              color: white;
+              font-weight: bold;
+              cursor: pointer;
+            } {% endcomment %}
+
+            {% comment %} #search-form {
+              display: inline-block;
+            }
+
+            #search-input {
+              padding: 5px;
+              border-radius: 5px;
+            } {% endcomment %}
+
+            {% comment %} .dynamic-nav a:hover {
+              text-decoration: underline;
+            } {% endcomment %}
+    </style>
   </head>
-  
   <body>
     <header>
-      <div class="header-logo-container">
-        <a href="/">
-          <img src="{% static 'images/coinwatch-logo-removebg-preview.png' %}" alt="CoinWatch Logo" />
-        </a>
-      </div>
       <nav class="dynamic-nav">
-        
-        <ul>
-          {% if user.is_authenticated %}
-            <li>
-              <form id="search-form">
-                <input type="text" id="search-input" name="q" placeholder="Search for coins..." autocomplete="off">
-            </form>
-            
-            <div id="search-results"></div>  <!-- This is where the results will appear -->
-            
-            <script>
-              document.getElementById('search-input').addEventListener('input', function() {
-                  const query = this.value;
-          
-                  if (query.length > 2) {  // Only start searching when 3 or more characters are typed
-                      fetch(`/live-search/?q=${query}`, {
-                          headers: {
-                              'x-requested-with': 'XMLHttpRequest'  // Indicate it's an AJAX request
-                          }
-                      })
-                      .then(response => response.json())
-                      .then(data => {
-                          const resultsDiv = document.getElementById('search-results');
-                          resultsDiv.innerHTML = '';  // Clear previous results
-          
-                          if (data.results.length > 0) {
-                              const ul = document.createElement('ul');
-                              data.results.forEach(result => {
-                                  const li = document.createElement('li');
-                                  
-                                  // Create a link to the coin detail page
-                                  const a = document.createElement('a');
-                                  a.href = `/coins/${result.symbol}/`;  // URL for coin details page
-                                  a.textContent = `${result.name} (${result.symbol}) - Price: $${result.price}`;
-                                  
-                                  li.appendChild(a);  // Add the link to the list item
-                                  ul.appendChild(li);
-                              });
-                              resultsDiv.appendChild(ul);
-                          } else {
-                              resultsDiv.innerHTML = '<p>No results found</p>';
-                          }
-                      });
-                  } else {
-                      document.getElementById('search-results').innerHTML = '';  // Clear results if input is less than 3 chars
-                  }
+        <div class="header-logo-container">
+          <a href="/">
+            <img
+              src="{% static 'images/coinwatch-logo-removebg-preview.png' %}"
+              alt="CoinWatch Logo"
+            />
+          </a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="search-wrapper">
+          <form id="search-form">
+            <input
+              type="text"
+              id="search-input"
+              name="q"
+              placeholder="Search for coins..."
+              autocomplete="off"
+            />
+          </form>
+
+          <div id="search-results"></div>
+          <!-- This is where the results will appear -->
+
+          <script>
+            document
+              .getElementById("search-input")
+              .addEventListener("input", function () {
+                const query = this.value;
+
+                if (query.length > 2) {
+                  // Only start searching when 3 or more characters are typed
+                  fetch(`/live-search/?q=${query}`, {
+                    headers: {
+                      "x-requested-with": "XMLHttpRequest", // Indicate it's an AJAX request
+                    },
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      const resultsDiv =
+                        document.getElementById("search-results");
+                      resultsDiv.innerHTML = ""; // Clear previous results
+
+                      if (data.results.length > 0) {
+                        const ul = document.createElement("ul");
+                        data.results.forEach((result) => {
+                          const li = document.createElement("li");
+
+                          // Create a link to the coin detail page
+                          const a = document.createElement("a");
+                          a.href = `/coins/${result.symbol}/`; // URL for coin details page
+                          a.textContent = `${result.name} (${result.symbol}) - Price: $${result.price}`;
+
+                          li.appendChild(a); // Add the link to the list item
+                          ul.appendChild(li);
+                        });
+                        resultsDiv.appendChild(ul);
+                      } else {
+                        resultsDiv.innerHTML = "<p>No results found</p>";
+                      }
+                    });
+                } else {
+                  document.getElementById("search-results").innerHTML = ""; // Clear results if input is less than 3 chars
+                }
               });
           </script>
-            </li>
-            <li><a href="{% url 'coin-watchlist' %}">My Watchlist</a></li>
-            &nbsp;|&nbsp;
-            <li><a href="{% url 'coin-index' %}">All Coins</a></li>
-            &nbsp;|&nbsp;
-            <li><a href="{% url 'about' %}">About</a></li>
-            &nbsp;|&nbsp;
-            <li>
-              <form id="logout-form" method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Log out</button>
-              </form>
-            </li>
-          {% else %}
+        </div>
+        <div class="main-nav">
+          <div class="nav-links">
+            <ul>
+              <li><a href="{% url 'coin-watchlist' %}">My Watchlist</a></li>
+              &nbsp;|&nbsp;
+              <li><a href="{% url 'coin-index' %}">All Coins</a></li>
+              &nbsp;|&nbsp;
+              <li><a href="{% url 'about' %}">About</a></li>
+              {% comment %} &nbsp;|&nbsp; {% endcomment %}
+            </ul>
+          </div>
+          <div>
+            <form id="logout-form" method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">Log out</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <div class="non-user">
+          <ul>
             <li><a href="{% url 'about' %}">About</a></li>
             &nbsp;|&nbsp;
             <li><a href="{% url 'home' %}">Login</a></li>
+          </ul>
+        </div>
 
-          {% endif %}
-
-
-        </ul>
+        {% endif %}
       </nav>
-      
     </header>
     <main>{% block content %} {% endblock %}</main>
   </body>
