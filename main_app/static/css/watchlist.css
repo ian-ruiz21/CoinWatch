@@ -1,0 +1,91 @@
+/* Coin grid container aligned closer to the top */
+.coin-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Individual coin card styling */
+.coin-card {
+  background-color: rgba(123, 87, 130, 0.7); /* Dark purple background */
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 250px; /* Adjust as needed */
+  box-shadow: 0 4px 10px rgba(184, 92, 243, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Coin image styling */
+.coin-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  border-radius: 50%; /* Make the image circular */
+}
+
+/* Coin information styling */
+.coin-info p {
+  color: rgba(255, 189, 89, 0.7);
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Coin change color (positive or negative) */
+.coin-info p.change-positive {
+  color: #4caf50; /* Green for positive change */
+}
+
+.coin-info p.change-negative {
+  color: #f44336; /* Red for negative change */
+}
+
+/* Remove from Watchlist button */
+.btn-gray {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(255, 189, 89, 0.7); /* Orange */
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-gray:hover {
+  background-color: #e68900; /* Darker orange on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Hover effect for coin card */
+.coin-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(184, 92, 243, 0.6);
+}
+
+.header {
+  text-align: center;
+  color: rgba(255, 189, 89);
+  margin-bottom: 20px;
+}
+
+h2 {
+    color: rgba(255, 189, 89);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .coin-card {
+    width: 100%; /* Full width for smaller screens */
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .coin-grid {
+    flex-direction: column; /* Stack cards on smaller screens */
+  }
+}
