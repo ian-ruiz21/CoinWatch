@@ -1,0 +1,106 @@
+/* Coin grid container aligned closer to the top */
+.coin-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px; 
+    border-radius: 10px; 
+}
+
+/* Individual coin item style */
+/* .coin-item {
+    background-color: #53006d;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 200px; 
+    box-shadow: 0 4px 10px rgba(184, 92, 243, 0.5); 
+} */
+
+/* Hover effect */
+/* .coin-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(184, 92, 243, 0.6); 
+} */
+
+/* Coin image styling */
+.coin-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+/* Links inside coin items */
+.coin-item a {
+    text-decoration: none;
+    color: #e3d6f5; /* Light metallic color for links */
+    transition: color 0.3s; 
+}
+
+/* .coin-item a:hover {
+    color: #b85cf3; 
+} */
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Dynamic button styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Submit button */
+.btn.submit {
+    background-color: rgba(123, 87, 130, 0.7); /* Bright metallic purple */
+}
+
+.btn.submit:hover {
+    background-color: #d4b3ff; /* Lighter metallic purple on hover */
+    transform: translateY(-2px);
+}
+
+/* Warning button */
+.btn.warn {
+    background-color: rgba(255, 189, 89, 0.7); /* Maintain orange for contrast */
+}
+
+.btn.warn:hover {
+    background-color: #e68900; /* Darker orange on hover */
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .coin-grid {
+        justify-content: center; /* Maintain horizontal centering */
+    }
+
+    .coin-item {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .coin-grid {
+        flex-direction: column; /* Stack items on small screens */
+    }
+}

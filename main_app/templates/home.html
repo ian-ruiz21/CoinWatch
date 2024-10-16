@@ -1,43 +1,47 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-{% endblock %} 
-{% block content %}
-
+{% endblock %} {% block content %}
 <section class="home-section">
-    <!-- Hero banner remains for both logged-in and logged-out users -->
-    <div class="hero-banner">
-        <h1>Welcome to Crypto Price Tracker</h1>
-        <p>Your go-to platform for tracking real-time cryptocurrency prices and trends.</p>
+  <!-- Hero banner -->
+  <div class="hero-banner">
+    <div class="logo-container">
+      <img src="{% static 'images/background-bitcoin.png' %}" alt="Logo" class="logo" />
     </div>
-
-    {% if user.is_authenticated %}
-    <!-- Content for logged-in users -->
-    <div class="welcome-container">
-        <h2>Welcome back, {{ user.username }}!</h2>
-        <p>Access your personalized cryptocurrency watchlist and stay up to date with real-time price changes.</p>
-        <a href="{% url 'coin-watchlist' %}" class="btn">Go to My Watchlist</a>
-        <a href="{% url 'coin-index' %}" class="btn">Explore All Coins</a>
+    <h1>Welcome to CoinWatch</h1>
+    <p>
+      Your go-to platform for tracking real-time cryptocurrency prices and
+      trends.
+    </p>
+  </div>
+  {% if user.is_authenticated %}
+  <div class="welcome-container">
+    <h2>Welcome back, {{ user.username }}!</h2>
+    <p>
+      Access your personalized cryptocurrency watchlist and stay up to date with
+      real-time price changes.
+    </p>
+    <a href="{% url 'coin-watchlist' %}" class="btn">Go to My Watchlist</a>
+    <a href="{% url 'coin-index' %}" class="btn">Explore All Coins</a>
+  </div>
+  {% else %}
+  <div class="login-container">
+    <form action="{% url 'home' %}" method="post" class="login-form">
+      <h2>Login to Your Account</h2>
+      <p>
+        Access your personalized cryptocurrency watchlist and real-time price
+        alerts by logging in below.
+      </p>
+      {% csrf_token %} {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <button type="submit" class="btn submit">Login</button>
+    </form>
+    <div class="signup-prompt">
+      <p>
+        New here? <a href="{% url 'signup' %}">Create an account</a> to start
+        tracking your favorite cryptocurrencies!
+      </p>
     </div>
-
-    {% else %}
-    <!-- Login form for users who are not logged in -->
-    <div class="login-container">
-        <form action="{% url 'home' %}" method="post" class="login-form">
-            <h2>Login to Your Account</h2>
-            <p>Access your personalized cryptocurrency watchlist and real-time price alerts by logging in below.</p>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="hidden" name="next" value="{{ next }}" />
-            <button type="submit" class="btn submit">Login</button>
-        </form>
-
-        <div class="signup-prompt">
-            <p>New here? <a href="{% url 'signup' %}">Create an account</a> to start tracking your favorite cryptocurrencies!</p>
-        </div>
-    </div>
-    {% endif %}
+  </div>
+  {% endif %}
 </section>
-
 {% endblock %}

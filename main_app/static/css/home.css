@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+body {
+  color: #f5bc68;
+}
+
 .hero-banner {
   margin-bottom: 2rem;
 }
@@ -30,31 +34,120 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 1.5rem;
-  background-color: #e9d7c0;
+  background-color: rgba(116, 87, 130, 0.7);
   border-radius: 8px;
 }
 
 .login-form h2 {
-  color: #34513a;
+  color: #ffbd59;
 }
 
 .login-form p {
   margin-bottom: 1.5rem;
-  color: #555;
+  color: #ffbd59;
 }
 
 .signup-prompt {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #777;
+  color: #ffbd59;
 }
 
 .signup-prompt a {
-  color: #34513a;
-  text-decoration: none;
+  color: #ffbd59;
+  text-decoration: underline;
   font-weight: bold;
 }
 
 .signup-prompt a:hover {
   text-decoration: underline;
+}
+
+.home-section {
+  display: grid;
+  margin-left: 10;
+  margin-right: 10;
+  background-color: rgba(116, 87, 130, 0.7);
+  padding: 2rem;
+  align-items: center;
+}
+
+a.btn {
+  color: #ffbd59;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+  background-color: rgba(123, 87, 130, 0.7);
+}
+
+@media (max-width: 768px) {
+  .dynamic-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-links > ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #search-input {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+/* Logo Styles */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 200px;
+    height: 200px;
+    animation: dropSpin 3s ease-out;
+    transform-origin: center; /* Spin from center */
+  }
+  
+  /* Keyframes for Drop and Spin Animation */
+  @keyframes dropSpin {
+    0% {
+      opacity: 0;
+      transform: translateY(-100px) rotate(0deg); /* Start above screen */
+    }
+    100% {
+      transform: translateY(0) rotate(360deg); /* Complete spin */
+    }
+  }
+  
+  /* Optional: Responsive Styling */
+  @media (max-width: 768px) {
+    .logo {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+@media (max-width: 480px) {
+  .header-logo-container {
+    margin-right: 0;
+  }
+
+  .search-wrapper {
+    margin-right: 0;
+  }
+
+  .btn-gray {
+    font-size: 14px; /* Smaller buttons on smaller screens */
+    padding: 8px 15px;
+  }
 }

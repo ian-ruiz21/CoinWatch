@@ -1,28 +1,27 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block head %}
-<link rel="stylesheet" href="{% static 'css/coin_details.css' %}"/>
-{% endblock %}
-
-{% block content %}
-<div class="coin-details-container">
-    <h1>{{ coin.name }} {{ coin.symbol }}</h1>
-    <div class="coin-info-box">
-    <div class="coin-info">
-        <img src="{{ coin.image }}" alt="{{ coin.name }}">
-        <p>Price: ${{ coin.price }}</p>
-        <p>Market Cap: ${{ coin.market_cap }}</p>
-        <p>Volume: ${{ coin.volume }}</p>
-        <p>Change (24h): {{ coin.change }}%</p>
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
+{% endblock %} {% block content %}
+<div class="coin-container">
+  <div class="coin-grid">
+    <div class="coin-item">
+      <h1>{{ coin.name }} {{ coin.symbol }}</h1>
+      <img src="{{ coin.image }}" alt="{{ coin.name }}" />
+      <p>Price: ${{ coin.price }}</p>
+      <p>Market Cap: ${{ coin.market_cap }}</p>
+      <p>Volume: ${{ coin.volume }}</p>
+      <p>Change (24h): {{ coin.change }}%</p>
     </div>
-        <p class="coin-description">{{ coin.description }}</p>
-    </div>
-    <form action="{% url 'add-to-watchlist' coin.symbol%}" method="POST"> 
-        {% csrf_token %}
-    <button type="submit" class="btn submit">Add New Coin!</button>
-     </form> 
-    <a href="{% url 'coin-index'  %}" class="btn warn">All Coins</a>
-    <a href="{% url 'historical_data' coin.symbol %}" class="btn warn">Crypto History</a>
+    <p class="coin-description">{{ coin.description }}</p>
+  </div>
+  <div class="button-group">
+    <form action="{% url 'add-to-watchlist' coin.symbol %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn submit">Add New Coin!</button>
+    </form>
+    <a href="{% url 'coin-index' %}" class="btn warn">All Coins</a>
+    <a href="{% url 'historical_data' coin.symbol %}" class="btn warn"
+      >Crypto History</a
+    >
+  </div>
 </div>
 {% endblock %}
