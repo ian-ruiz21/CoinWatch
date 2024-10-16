@@ -1,0 +1,44 @@
+/* Container layout styling */
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+/* First Section: Grid with text on the left and images on the right */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Two-thirds for text, one-third for images */
+  gap: 20px;
+  margin-bottom: 40px;
+}
+/* Second Section: Grid with images on the left and text on the right */
+.reverse-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* One-third for images, two-thirds for text */
+  gap: 20px;
+  margin-bottom: 40px;
+}
+/* Styling for text content */
+.text-content .section {
+  margin-bottom: 20px;
+}
+/* Image boxes */
+.image-box {
+  width: 60%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-layout,
+  .reverse-grid-layout {
+    grid-template-columns: 1fr; /* Stack elements on smaller screens */
+  }
+  .image-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
