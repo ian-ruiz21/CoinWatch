@@ -8,6 +8,15 @@
   margin: 10px 0;
 }
 
+nav {
+  display: flex;
+  padding: 10px 0;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 500px;
+}
+
 .dynamic-nav ul li {
   margin: 0 15px;
 }
@@ -15,19 +24,21 @@
 .dynamic-nav a {
   text-decoration: none;
   color: #ffbd59;
-  font-weight: 500;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .dynamic-nav {
   display: flex;
   padding: 10px 0;
-  justify-content: space-between;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
 
   .header-logo-container {
     margin-right: 5rem;
+    text-align: center;
   }
   .search-wrapper {
     margin-right: 5rem;
@@ -45,15 +56,15 @@
 }
 
 header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #53006d; 
-    z-index: 1000; 
-    padding: 10px 0; 
-  }
-
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 0;
+  background-color: rgba(44, 42, 44, 0.7);
+  text-decoration: none;
+}
 
 #logout-form button {
   border: none;
@@ -87,8 +98,8 @@ header {
   overflow-y: auto;
   margin-top: 5px;
   width: 100%;
-  position:absolute;
-  background-color: rgba(255, 255, 242, 0.5) ;
+  position: absolute;
+  background-color: rgba(255, 255, 242, 0.5);
 }
 
 #search-results ul {
@@ -108,7 +119,7 @@ header {
 
 #search-input {
   padding: 10px;
-  width: 500px;
+  width: 250px;
   border: 1px solid white;
   border-radius: 20.5px;
   background: transparent;
@@ -116,6 +127,44 @@ header {
 }
 
 #search-input:focus {
-    outline-color:#ffbd59;
-    border: none;
+  outline-color: #ffbd59;
+  border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dynamic-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-links > ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #search-input {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-container {
+    margin-right: 0;
+  }
+
+  .search-wrapper {
+    margin-right: 0;
+  }
+
+  .btn-gray {
+    font-size: 14px; /* Smaller buttons on smaller screens */
+    padding: 8px 15px;
+  }
 }

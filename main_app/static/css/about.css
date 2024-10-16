@@ -1,7 +1,8 @@
 /* Container layout styling */
 .container {
   width: 90%;
-  margin: 0 auto;
+  margin: auto;
+  background-color: rgba(123, 87, 130, 0.7);
 }
 /* First Section: Grid with text on the left and images on the right */
 .grid-layout {
@@ -30,6 +31,23 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
+
+div.text-content {
+    width: 100%;
+}
+
+div.image-content {
+    width: 100%;
+}
+
+/* Image content */
+.image-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .grid-layout,

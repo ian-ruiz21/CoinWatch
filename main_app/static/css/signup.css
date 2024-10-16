@@ -1,0 +1,125 @@
+/* General page styling */
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: #ffbd59; /* Matches previous color scheme */
+  }
+  
+  body {
+    color: #f5bc68;
+  }
+
+  /* Form container */
+  .form-container {
+    display: inline-block;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: rgba(116, 87, 130, 0.7); /* Background matching the theme */
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+  }
+
+  main {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  
+  /* Form styling */
+  table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  table tr td {
+    padding: 10px;
+  }
+  
+  input[type="text"], 
+  input[type="password"], 
+  input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  /* Button styling */
+  .btn.submit {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #ffbd59; /* Matching button color */
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn.submit:hover {
+    background-color: #d89a4d; /* Darker shade on hover */
+  }
+  
+  /* Error message */
+  .red-text {
+    color: #ff4d4d;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  table {
+    padding: 0 40px;
+    width: 100%;
+    border-spacing: 0 20px;
+  }
+  
+  th {
+    text-align: left;
+    padding: 20px 20px 0 0;
+    font-weight: normal;
+    vertical-align: top;
+    font-size: var(--font-reg);
+  }
+  
+  td {
+    max-width: 60%;
+  }
+  
+  td>* {
+    width: 100%;
+    padding: 2px 4px;
+    font-size: var(--font-l);
+  }
+  
+  td>textarea {
+    height: calc(4 * var(--font-l) + 8px);
+    font-family: inherit;
+  }
+  
+  .btn-submit {
+    align-self: flex-end;
+    margin-right: 40px;
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .form-container {
+      width: 90%;
+    }
+  }

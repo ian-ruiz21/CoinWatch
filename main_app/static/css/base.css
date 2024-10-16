@@ -70,6 +70,7 @@ border: 1px solid #ddd;
 border-radius: 8px;
 text-align: center;
 transition: transform 0.2s, box-shadow 0.2s;
+background-color: rgba(123, 87, 130, 0.7);
 }
 
 .coin-item:hover {
@@ -95,12 +96,52 @@ color: rgb(183, 0, 255);
 
 @media (max-width: 768px) {
 .coin-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+    grid-template-columns: repeat(2, 1fr); 
 }
 }
 
 @media (max-width: 480px) {
 .coin-grid {
-    grid-template-columns: 1fr; /* 1 column for very small screens */
+    grid-template-columns: 1fr; 
 }
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dynamic-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-links > ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #search-input {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo-container {
+    margin-right: 0;
+  }
+
+  .search-wrapper {
+    margin-right: 0;
+  }
+
+  .btn-gray {
+    font-size: 14px; /* Smaller buttons on smaller screens */
+    padding: 8px 15px;
+  }
 }

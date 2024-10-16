@@ -11,79 +11,18 @@
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <title>CoinWatch</title>
     {% block head %} {% endblock %}
-
-    <style>
-            /* Floating Navigation Bar Styles */
-            header {
-              position: sticky;
-              {% comment %} top: 0;
-              left: 0;  {% endcomment %}
-              width: 100%;
-              {% comment %} background-color: #53006d; {% endcomment %}
-              z-index: 1000;
-              {% comment %} padding: 10px 0; {% endcomment %}
-            }
-
-            .header-logo-container {
-              text-align: center;
-            }
-
-            .dynamic-nav {
-              text-align: center;
-              margin-top: 10px;
-            }
-      {% comment %}
-            .dynamic-nav ul {
-              list-style: none;
-              padding: 0;
-              margin: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-
-            .dynamic-nav li {
-              margin: 0 15px;
-            } {% endcomment %}
-
-            {% comment %} .dynamic-nav a {
-              text-decoration: none;
-              color: white;
-              font-weight: bold;
-            } {% endcomment %}
-
-            {% comment %} .dynamic-nav button {
-              background-color: transparent;
-              border: none;
-              color: white;
-              font-weight: bold;
-              cursor: pointer;
-            } {% endcomment %}
-
-            {% comment %} #search-form {
-              display: inline-block;
-            }
-
-            #search-input {
-              padding: 5px;
-              border-radius: 5px;
-            } {% endcomment %}
-
-            {% comment %} .dynamic-nav a:hover {
-              text-decoration: underline;
-            } {% endcomment %}
-    </style>
   </head>
+
   <body>
     <header>
+      <a href="/">
+        <img
+          src="{% static 'images/coinwatch-logo-removebg-preview.png' %}"
+          alt="CoinWatch Logo"
+        />
+      </a>
       <nav class="dynamic-nav">
         <div class="header-logo-container">
-          <a href="/">
-            <img
-              src="{% static 'images/coinwatch-logo-removebg-preview.png' %}"
-              alt="CoinWatch Logo"
-            />
-          </a>
         </div>
         {% if user.is_authenticated %}
         <div class="search-wrapper">
