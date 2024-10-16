@@ -11,6 +11,7 @@ class Coin(models.Model):
     volume = models.FloatField()
     change = models.FloatField()
     image = models.URLField()
+    api_key = models.CharField(max_length=100)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
