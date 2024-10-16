@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
@@ -44,6 +45,7 @@ def fetch_coin_info():
                 "volume": coin_data["total_volume"],
                 "change": coin_data["price_change_percentage_24h"],
                 "image": coin_data["image"],
+                "api_key": coin_data["id"],
                 "updated_at": curr_time
             }
 
@@ -54,7 +56,7 @@ def fetch_coin_info():
     else:
         return None
 
-
+@login_required
 def coin_index(request):
     # Check if there are coins in database
     coins = Coin.objects.all().order_by("-market_cap")
@@ -80,7 +82,7 @@ def coin_index(request):
         # Get all coins from the database
     return render(request, "coins/index.html", {"coins": coins})
 
-
+@login_required
 def coin_detail(request, symbol):
     try:
         coin = Coin.objects.get(symbol=symbol)
@@ -89,17 +91,21 @@ def coin_detail(request, symbol):
     
     return render(request,"coins/detail.html", {"coin": coin})
 
+@login_required
 def historical_data(request, api_key):
+    coin = coin.objects.get(api_key=api_key)
     response = requests.get('https://api.coingecko.com/api/v3/coins/{api_key}/market_chart?vs_currency=usd&days=30&interval=daily')
 
-    return render(request, "coins/historical_data.html")
+    return render(request, "coins/historical_data.html", {"coin": coin})
 
+@login_required
 def watchlist_view(request):
     watchlist = WatchList.objects.filter(user=request.user).first()  # Get watchlist for logged-in user
     if not watchlist:
         watchlist = WatchList.objects.create(user=request.user)  # Create an empty watchlist if it doesn't exist
     return render(request, 'coins/watchlist.html', {'watchlist': watchlist})
 
+@login_required
 def add_to_watchlist(request, symbol):
     # coin = get_object_or_404(Coin, symbol=symbol)
     coin = Coin.objects.get(symbol=symbol)
@@ -113,7 +119,7 @@ def add_to_watchlist(request, symbol):
     # return render(request, 'coins/watchlist.html')
     return redirect('/watchlist')
 
-
+@login_required
 def remove_from_watchlist(request, symbol):
     coin = get_object_or_404(Coin, symbol=symbol)
     watchlist = WatchList.objects.filter(user=request.user).first()
@@ -123,6 +129,7 @@ def remove_from_watchlist(request, symbol):
 
     return redirect('/watchlist')
 
+@login_required
 def live_search(request):
     query = request.GET.get('q', '')  # Get the search query from the request
     if query:
