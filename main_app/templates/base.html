@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <title>CoinWatch</title>
+    <script src="https://kit.fontawesome.com/c74386571e.js" crossorigin="anonymous"></script> 
     {% block head %} {% endblock %}
   </head>
 
@@ -85,26 +86,44 @@
         <div class="main-nav">
           <div class="nav-links">
             <ul>
-              <li><a href="{% url 'coin-watchlist' %}">My Watchlist</a></li>
+              <li><a href="{% url 'coin-watchlist' %}">
+                <i class="fa-regular fa-eye"></i>
+                My Watchlist
+              </a></li>
               &nbsp;|&nbsp;
-              <li><a href="{% url 'coin-index' %}">All Coins</a></li>
+              <li><a href="{% url 'coin-index' %}">
+                <i class="fa-solid fa-coins"></i>
+                All Coins
+              </a></li>
               &nbsp;|&nbsp;
-              <li><a href="{% url 'about' %}">About</a></li>
+              <li><a href="{% url 'about' %}">
+                <i class="fa-solid fa-circle-info"></i>
+                About
+              </a></li>
             </ul>
           </div>
           <div>
             <form id="logout-form" method="post" action="{% url 'logout' %}">
               {% csrf_token %}
-              <button type="submit">Log out</button>
+              <button type="submit">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log out
+              </button>
             </form>
           </div>
         </div>
         {% else %}
         <div class="non-user">
           <ul>
-            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'about' %}">
+              <i class="fa-solid fa-circle-info"></i>
+              About
+            </a></li>
             &nbsp;|&nbsp;
-            <li><a href="{% url 'home' %}">Login</a></li>
+            <li><a href="{% url 'home' %}">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              Login
+            </a></li>
           </ul>
         </div>
 

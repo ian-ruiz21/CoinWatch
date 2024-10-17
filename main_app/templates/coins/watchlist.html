@@ -14,9 +14,10 @@
       <p>Market Cap: {{ coin.market_cap }}</p>
       <p>Volume: {{ coin.volume }}</p>
       <p>Change: {{ coin.change }}%</p>
-      <a href="{% url 'remove-from-watchlist' coin.symbol %}" class="btn-gray"
-        >Remove from Watchlist</a
-      >
+      <a href="{% url 'remove-from-watchlist' coin.symbol %}" class="btn-gray">
+        <i class="fa-solid fa-circle-minus"></i>
+        Remove
+      </a>
     </div>
   </div>
   {% endfor %}
