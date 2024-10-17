@@ -22,6 +22,34 @@ canvas {
     height: auto;
 }
 
-body {
+/* body {
     background-color: #e9d7c0; 
+} */
+
+.btn.warn {
+    background-color: rgba(255, 189, 89, 0.7);
+}
+
+.btn.warn:hover {
+    background-color: #e68900;
+    transform: translateY(-2px);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
