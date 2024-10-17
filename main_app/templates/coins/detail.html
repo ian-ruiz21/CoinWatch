@@ -16,11 +16,20 @@
   <div class="button-group">
     <form action="{% url 'add-to-watchlist' coin.symbol %}" method="POST">
       {% csrf_token %}
-      <button type="submit" class="btn submit">Add New Coin!</button>
+      <button type="submit" class="btn submit">
+        <i class="fa-solid fa-plus"></i>
+        Add New Coin!
+      </button>
     </form>
-    <a href="{% url 'coin-index' %}" class="btn warn">All Coins</a>
+    <a href="{% url 'coin-index' %}" class="btn warn">
+      <i class="fa-solid fa-coins"></i>
+      All Coins
+    </a>
     <a href="{% url 'historical_data' coin.symbol %}" class="btn warn"
-      >Crypto History</a
+      >
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      Crypto History
+      </a
     >
   </div>
 </div>
