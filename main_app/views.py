@@ -33,7 +33,6 @@ def fetch_coin_info():
 
     if response.status_code == 200:
         data = response.json()
-        # Return the list of 15 coins
         coins = []
         curr_time = timezone.now()
         for coin_data in data:
@@ -49,7 +48,6 @@ def fetch_coin_info():
                 "updated_at": curr_time
             }
 
-            # Append each coin's data to the coins list
             coins.append(api_coin_data)
         return coins
 
@@ -58,7 +56,6 @@ def fetch_coin_info():
 
 @login_required
 def coin_index(request):
-    # Check if there are coins in database
     coins = Coin.objects.all().order_by("-market_cap")
     if len(coins) and coins[0].updated_at < timezone.now() - timezone.timedelta(minutes=API_FETCH_FREQ):
         print("Updating coins")
@@ -76,10 +73,8 @@ def coin_index(request):
     
     elif not len(coins):
         coin_data = fetch_coin_info()
-        # Save the data to the database
         coin_objects = [Coin(**data) for data in coin_data]
         coins = Coin.objects.bulk_create(coin_objects)
-        # Get all coins from the database
     return render(request, "coins/index.html", {"coins": coins})
 
 @login_required
@@ -92,31 +87,55 @@ def coin_detail(request, symbol):
     return render(request,"coins/detail.html", {"coin": coin})
 
 @login_required
-def historical_data(request, api_key):
-    coin = coin.objects.get(api_key=api_key)
-    response = requests.get('https://api.coingecko.com/api/v3/coins/{api_key}/market_chart?vs_currency=usd&days=30&interval=daily')
+def historical_data(request, symbol):
+    coin = get_object_or_404(Coin, symbol=symbol)
 
-    return render(request, "coins/historical_data.html", {"coin": coin})
+    api_url = f"https://api.coingecko.com/api/v3/coins/{coin.api_key}/market_chart"
+
+    params = {
+        'vs_currency': 'usd',
+        'days': '30',
+        'interval': 'daily',
+    }
+
+    response = requests.get(api_url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        prices = data.get('prices', [])
+        dates = [item[0] for item in prices]
+        values = [item[1] for item in prices]
+
+        context = {
+            'coin': coin,
+            'dates': dates,
+            'values': values,
+        }
+    else:
+        context = {
+            'coin': coin,
+            'error': 'Failed to retrieve historical data'
+        }
+
+    return render(request, 'coins/historical_data.html', context)
 
 @login_required
 def watchlist_view(request):
-    watchlist = WatchList.objects.filter(user=request.user).first()  # Get watchlist for logged-in user
+    watchlist = WatchList.objects.filter(user=request.user).first()
     if not watchlist:
-        watchlist = WatchList.objects.create(user=request.user)  # Create an empty watchlist if it doesn't exist
+        watchlist = WatchList.objects.create(user=request.user)
     return render(request, 'coins/watchlist.html', {'watchlist': watchlist})
 
 @login_required
 def add_to_watchlist(request, symbol):
-    # coin = get_object_or_404(Coin, symbol=symbol)
     coin = Coin.objects.get(symbol=symbol)
     watchlist = WatchList.objects.filter(user=request.user).first()
 
     if not watchlist:
-        watchlist = WatchList.objects.create(user=request.user)  # Create a watchlist if it doesn't exist
+        watchlist = WatchList.objects.create(user=request.user)
 
-    watchlist.coin.add(coin) # Add coin to watchlist 
+    watchlist.coin.add(coin) 
     print(coin)
-    # return render(request, 'coins/watchlist.html')
     return redirect('/watchlist')
 
 @login_required
@@ -125,22 +144,20 @@ def remove_from_watchlist(request, symbol):
     watchlist = WatchList.objects.filter(user=request.user).first()
 
     if watchlist:
-        watchlist.coin.remove(coin)  # Remove coin from watchlist
+        watchlist.coin.remove(coin)
 
     return redirect('/watchlist')
 
 @login_required
 def live_search(request):
-    query = request.GET.get('q', '')  # Get the search query from the request
+    query = request.GET.get('q', '')
     if query:
-        # Perform a case-insensitive search for coins that match the name or symbol
         results = Coin.objects.filter(
             Q(name__icontains=query) | Q(symbol__icontains=query)
         )
     else:
-        results = Coin.objects.none()  # If no query, return empty results
+        results = Coin.objects.none()
 
-    # Serialize results to send back as JSON
     data = list(results.values('name', 'symbol', 'price'))
 
     return JsonResponse({'results': data})

@@ -13,7 +13,7 @@ body {
 
 .hero-banner h1 {
   font-size: 2.5rem;
-  color: #ffbd59; /* Dark green to match your previous color scheme */
+  color: #ffbd59;
 }
 
 .hero-banner p {
@@ -100,11 +100,10 @@ a.btn {
   }
 
   #search-input {
-    width: 100%; /* Full width on smaller screens */
+    width: 100%; 
   }
 }
 
-/* Logo Styles */
 .logo-container {
     display: flex;
     justify-content: center;
@@ -115,21 +114,19 @@ a.btn {
     width: 200px;
     height: 200px;
     animation: dropSpin 3s ease-out;
-    transform-origin: center; /* Spin from center */
+    transform-origin: center; 
   }
   
-  /* Keyframes for Drop and Spin Animation */
   @keyframes dropSpin {
     0% {
       opacity: 0;
-      transform: translateY(-100px) rotate(0deg); /* Start above screen */
+      transform: translateY(-100px) rotate(0deg); 
     }
     100% {
-      transform: translateY(0) rotate(360deg); /* Complete spin */
+      transform: translateY(0) rotate(360deg);
     }
   }
-  
-  /* Optional: Responsive Styling */
+
   @media (max-width: 768px) {
     .logo {
       width: 80px;
@@ -147,7 +144,7 @@ a.btn {
   }
 
   .btn-gray {
-    font-size: 14px; /* Smaller buttons on smaller screens */
+    font-size: 14px;
     padding: 8px 15px;
   }
 }
