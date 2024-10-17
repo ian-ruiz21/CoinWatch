@@ -37,7 +37,7 @@
           </form>
 
           <div id="search-results"></div>
-          <!-- This is where the results will appear -->
+
 
           <script>
             document
@@ -46,17 +46,17 @@
                 const query = this.value;
 
                 if (query.length > 2) {
-                  // Only start searching when 3 or more characters are typed
+
                   fetch(`/live-search/?q=${query}`, {
                     headers: {
-                      "x-requested-with": "XMLHttpRequest", // Indicate it's an AJAX request
+                      "x-requested-with": "XMLHttpRequest",
                     },
                   })
                     .then((response) => response.json())
                     .then((data) => {
                       const resultsDiv =
                         document.getElementById("search-results");
-                      resultsDiv.innerHTML = ""; // Clear previous results
+                      resultsDiv.innerHTML = "";
 
                       if (data.results.length > 0) {
                         const ul = document.createElement("ul");
@@ -65,10 +65,10 @@
 
                           // Create a link to the coin detail page
                           const a = document.createElement("a");
-                          a.href = `/coins/${result.symbol}/`; // URL for coin details page
+                          a.href = `/coins/${result.symbol}/`;
                           a.textContent = `${result.name} (${result.symbol}) - Price: $${result.price}`;
 
-                          li.appendChild(a); // Add the link to the list item
+                          li.appendChild(a);
                           ul.appendChild(li);
                         });
                         resultsDiv.appendChild(ul);
@@ -77,7 +77,7 @@
                       }
                     });
                 } else {
-                  document.getElementById("search-results").innerHTML = ""; // Clear results if input is less than 3 chars
+                  document.getElementById("search-results").innerHTML = "";
                 }
               });
           </script>
@@ -90,7 +90,6 @@
               <li><a href="{% url 'coin-index' %}">All Coins</a></li>
               &nbsp;|&nbsp;
               <li><a href="{% url 'about' %}">About</a></li>
-              {% comment %} &nbsp;|&nbsp; {% endcomment %}
             </ul>
           </div>
           <div>

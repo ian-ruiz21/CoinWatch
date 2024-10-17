@@ -80,8 +80,8 @@ header {
   font-size: 16px;
   text-align: center;
   text-decoration: none;
-  background-color: #ffbd59; /* Gray background */
-  color: white; /* White text */
+  background-color: #ffbd59;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -89,7 +89,7 @@ header {
 }
 
 .btn-gray:hover {
-  background-color: #ffbd59; /* Darker gray on hover */
+  background-color: #ffbd59;
 }
 
 #search-results {
@@ -131,7 +131,6 @@ header {
   border: none;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .dynamic-nav {
     flex-direction: column;
@@ -150,7 +149,7 @@ header {
   }
 
   #search-input {
-    width: 100%; /* Full width on smaller screens */
+    width: 100%;
   }
 }
 
@@ -164,7 +163,7 @@ header {
   }
 
   .btn-gray {
-    font-size: 14px; /* Smaller buttons on smaller screens */
+    font-size: 14px;
     padding: 8px 15px;
   }
 }

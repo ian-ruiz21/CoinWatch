@@ -1,16 +1,78 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'css/historical_data.css' %}" />
+<title>{{ coin.name }} - Historical Data</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
 {% endblock %} {% block content %}
 
-<div class="container">
-    <h1>Historical Data</h1>
+<h1>{{ coin.name }} ({{ coin.symbol }}) - 30 Day Price History</h1>
 
-    <div class="section">
-        <h2> </h2>
-        
-    </div>
+<div class="chart-container">
+    <canvas id="priceChart"></canvas>  
+</div>
 
-</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script>   
+    const labels = {{ dates|safe }}.map(date => {
+        let d = new Date(date); 
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    });
+    const data = {{ values|safe }};
 
+    // Create the chart
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const priceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, 
+            datasets: [{
+                label: '{{ coin.name }} Price (USD)',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: true, 
+                tension: 0.2 
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date',
+                        color: ' rgba(255, 189, 89, 0.7)',
+                    },
+                    ticks: {
+                        
+                        color: ' rgba(255, 189, 89, 0.7)',
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Price (USD)',
+                        color: ' rgba(255, 189, 89, 0.7)',
+                    },
+                    ticks: {
+                        color: ' rgba(255, 189, 89, 0.7)', 
+                    }
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: ' rgba(255, 189, 89, 0.7)', 
+                    }
+                },
+                tooltip: {
+                    backgroundColor: ' rgba(255, 189, 89, 0.7)',
+                    titleColor: '#fff', 
+                    bodyColor: '#fff'  
+                }
+            }
+        }
+    });    
+</script>
 {% endblock %}
