@@ -12,9 +12,7 @@ nav {
   display: flex;
   padding: 10px 0;
   align-items: center;
-  width: 100%;
   box-sizing: border-box;
-  margin-left: 500px;
 }
 
 .dynamic-nav ul li {
@@ -31,10 +29,12 @@ nav {
 
 .dynamic-nav {
   display: flex;
-  padding: 10px 0;
+  justify-content: center;
+  padding: 10px;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
+  
 
   .header-logo-container {
     margin-right: 5rem;
@@ -138,7 +138,6 @@ header {
   }
 
   .main-nav {
-    width: 100%;
     justify-content: space-between;
   }
 
@@ -146,10 +145,6 @@ header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-  }
-
-  #search-input {
-    width: 100%;
   }
 }
 

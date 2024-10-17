@@ -8,7 +8,7 @@ body {
 }
 
 .hero-banner {
-  margin-bottom: 2rem;
+  margin-bottom: auto;
 }
 
 .hero-banner h1 {
@@ -30,7 +30,7 @@ body {
 
 .login-container {
   display: inline-block;
-  text-align: left;
+  text-align: center;
   max-width: 400px;
   margin: 0 auto;
   padding: 1.5rem;
@@ -48,15 +48,22 @@ body {
 }
 
 .signup-prompt {
-  margin-top: 1rem;
+  margin-top: auto;
   font-size: 0.9rem;
   color: #ffbd59;
 }
 
 .signup-prompt a {
-  color: #ffbd59;
-  text-decoration: underline;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
   font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: rgba(255, 189, 89, 0.7);
 }
 
 .signup-prompt a:hover {
@@ -90,6 +97,19 @@ a.btn {
   width: 90%;
   margin: auto;
   background-color: rgba(123, 87, 130, 0.7);
+}
+
+.btn-submit {
+  padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: rgba(255, 189, 89, 0.7);
 }
 
 @media (max-width: 768px) {
