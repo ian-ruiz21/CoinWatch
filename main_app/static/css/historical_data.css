@@ -22,10 +22,6 @@ canvas {
     height: auto;
 }
 
-/* body {
-    background-color: #e9d7c0; 
-} */
-
 .btn.warn {
     background-color: rgba(255, 189, 89, 0.7);
 }
