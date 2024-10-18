@@ -11,6 +11,9 @@ CoinWatch is a platform to track live cryptocurrency prices, view historical dat
 
 *Above is a screenshot of the application's all coins page.*
 
+## Visit our app
+You can visit our app here: https://coinwatch-26f35a9e73f9.herokuapp.com/
+
 ## Features
 
 - **User Authentication:** Sign up, log in, and manage accounts.
